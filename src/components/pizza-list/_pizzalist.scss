@@ -1,0 +1,13 @@
+.wrapper-list {
+    margin-top: 32px;
+    h2 {
+        font-weight: 700;
+        font-size: 32px;
+    }
+    .pizza-list {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 65px 35px;
+        margin-top: 35px;
+    }
+}

@@ -1,0 +1,46 @@
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &__head {
+        display: flex;
+        img {
+            width: 38px;
+            height: 38px;
+            margin-top: 13px;
+            margin-right: 17px;
+        }
+        h1 {
+            font-weight: 800;
+            font-size: 24px;
+            color: #181818;
+        }
+        p {
+            font-weight: 400;
+            font-size: 16px;
+            color: #7B7B7B;
+        }
+    }
+    &__cart {
+        width: 150px;
+        height: 50px;
+        border-radius: 30px;
+        background-color: #FE5F1E;
+        .button {
+            display: flex;
+            justify-content: space-around;
+            padding: 14px 23px 16px 23px;
+            span {
+                color: #FFFFFF;
+                font-weight: 700;
+                font-size: 16px;
+            }
+            &__delimiter {
+                width: 1px;
+                height: 25px;
+                background: rgba(255, 255, 255, 0.25);
+            }
+        }
+        
+    }
+}

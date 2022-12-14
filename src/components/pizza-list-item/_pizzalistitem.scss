@@ -1,0 +1,113 @@
+.pizza-item {
+    display: flex;
+    flex-direction: column;
+    max-width: 280px;
+    &__title {
+        font-weight: 800;
+        font-size: 20px;
+        text-align: center;
+        margin-top: 11px;
+    }
+    &__style {
+        display: flex;
+        flex-direction: column;
+        margin-top: 22px;
+        .wrapper {
+            &__options {
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 1fr;
+                padding: 6px 6px 6px;
+                background: #F3F3F3;
+                border-radius: 10px;
+                .type {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+                .size {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-top: 6px;
+                }
+                li {
+                    width: 100%;
+                    padding: 7px;
+                    text-align: center;
+                    cursor: pointer;
+                    font-weight: 700;
+                    font-size: 14px;
+                    &.active {
+                      background: #ffffff;
+                      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
+                      border-radius: 5px;
+                      cursor: auto;
+                      &:hover {
+                        background: #ffffff;
+                    }
+                    }
+                    &:hover {
+                        background: rgba(255, 255, 255, 0.5);
+                    }
+                }
+                
+            }
+            &__price {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr;
+                margin-top: 17px;
+                .price__start {
+                    font-weight: 700;
+                    font-size: 22px;
+                }
+                .price__btn {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 11px 11px 11px 11px;
+                    max-width: 155px;
+                    max-height: 40px;
+                    background: #FFFFFF;
+                    border: 1px solid #EB5A1E;
+                    border-radius: 30px;
+                    cursor: pointer;
+                    span {
+                        font-weight: 700;
+                        font-size: 16px;
+                        color: #EB5A1E;
+                    }
+                    &-count {
+                        width: 22px;
+                        height: 22px;
+                        padding-top: 2px;
+                        background: #EB5A1E;
+                        border-radius: 50%;
+                        color: #FFFFFF;
+                    }
+                    &:hover {
+                        background: #EB5A1E;
+                        span {
+                            
+                            color: #FFFFFF;
+                        }
+                        svg {
+                            path {
+                                fill: #FFFFFF;
+                            }
+                        }
+                        .price__btn-count {
+                            
+                            background: #FFFFFF;
+                            
+                            color: #EB5A1E;
+                        }
+                    }
+                }
+            }
+        } 
+        
+        
+    }
+}
