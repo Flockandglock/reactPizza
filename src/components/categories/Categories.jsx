@@ -5,20 +5,44 @@ import './_categories.scss';
 
 const Categories = () => {
 
+    // Данные для категорий и попапа
     const [activeIndex, setActiveIndex] = useState(0);
     const categoriesArr = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
+
+    const [visiblePopup, setVsiblePopup] = useState(false);
+    const categoriesPopup = ['популярности', 'цене', 'алфавиту'];
+    const [activeCategoriesPopup, setActiveCategoriesPopup] = useState(0);
+    const selectedName = categoriesPopup[activeCategoriesPopup];
+
+
+    //Тоглим активные индексы 
+    const toogleActivePopup = (index) => {
+        setActiveCategoriesPopup(index);
+        setVsiblePopup(false);
+    };
 
     const toggleActive = (index) => {
         setActiveIndex(index);
     };
 
+    // Возрващаем список
     const renderCategories = (arr) => {
         return arr.map((item, index) => 
             <li key={index} onClick={() => toggleActive(index)} className={activeIndex === index ? 'active' : ''}>{item}</li>    
         );
     };
 
+    const renderCategoriesPopup= (arr) => {
+        return arr.map((item, index) => 
+            <li key={index} onClick={() => toogleActivePopup(index)} className={activeCategoriesPopup === index ? 'active' : ''}>{item}</li>    
+        );
+    };
+
+    // Вызываем наши списки
     const listCategories = renderCategories(categoriesArr);
+    const listCategoriesPopup = renderCategoriesPopup(categoriesPopup);
+
+
 
     return (
         <div className='container'>
@@ -28,7 +52,8 @@ const Categories = () => {
                 </ul>
 
                 <div className='sort'>
-                    <div className='sort__select'>
+                    <div className='sort__select'
+                        onClick={() => setVsiblePopup(!visiblePopup)}>
                         <svg
                             width='10'
                             height='6'
@@ -41,14 +66,17 @@ const Categories = () => {
                             />
                         </svg>
                         <b>Сортировка по:</b>
-                        <span>популярности</span>
+                        <span>{selectedName}</span>
                     </div>
                     <div className='sort__popup'>
-                        <ul>
-                            <li className='active'>популярности</li>
-                            <li>цене</li>
-                            <li>алфавиту</li>
-                        </ul>
+                       {
+                            visiblePopup ? 
+                            <ul>
+                                {listCategoriesPopup}
+                            </ul>
+                            :
+                            undefined
+                        }
                     </div>
                 </div>
             </div>
