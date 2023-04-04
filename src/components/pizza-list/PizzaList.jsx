@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PizzaListItem from '../pizza-list-item/PizzaListItem';
 
 import './_pizzalist.scss';
 
-import pizzes from '../../assets/pizza.json';
 
 
 const PizzaList = () => {
+
+    const [pizzes, setPizzes] = useState([]);
+
+
+    useEffect(() => {
+        fetch("https://6420812425cb6572104ac358.mockapi.io/items")
+            .then(res => res.json())
+            .then(res => {
+                setPizzes(res);
+            })
+    }, []);
 
     const renderPizzaList = (pizzes) => {
         return pizzes.map((pizza) => 
