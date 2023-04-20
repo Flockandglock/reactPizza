@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PizzaListItem from '../pizza-list-item/PizzaListItem';
 
+import Skeleton from './Skeleton';
+
 import './_pizzalist.scss';
 
 
@@ -8,6 +10,7 @@ import './_pizzalist.scss';
 const PizzaList = () => {
 
     const [pizzes, setPizzes] = useState([]);
+    const [loading, setLoading] = useState(true);
 
 
     useEffect(() => {
@@ -15,8 +18,11 @@ const PizzaList = () => {
             .then(res => res.json())
             .then(res => {
                 setPizzes(res);
+                setLoading(false);
             })
+            .catch(error => console.log(error))
     }, []);
+    
 
     const renderPizzaList = (pizzes) => {
         return pizzes.map((pizza) => 
@@ -24,7 +30,14 @@ const PizzaList = () => {
         )
     };
 
+    const renderSkeleton = () => {
+        return [...new Array(9)].map((items, index) => 
+             <Skeleton key={index} props={items}/>
+        )
+    };
+
     const pizzaList = renderPizzaList(pizzes);
+    const skeleton = renderSkeleton(pizzes);
 
 
     return (
@@ -33,7 +46,13 @@ const PizzaList = () => {
                 <h2>Все пиццы</h2>
 
                 <div className='pizza-list'>
-                    {pizzaList}
+                    {
+                        loading
+                        ?
+                        skeleton
+                        :
+                        pizzaList
+                    }
                 </div>
             </div>
         </div>

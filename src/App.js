@@ -1,6 +1,9 @@
 import Header from './components/header/Header';
-import Categories from './components/categories/Categories';
-import PizzaList from './components/pizza-list/PizzaList';
+import Home from './pages/Home';
+import NotFoundBlock from './components/notFoundBlock/NotFoundBlock';
+
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 
 import './App.scss';
 
@@ -10,8 +13,10 @@ function App() {
         <div className="App">
             <Header />
             <div className='hr'></div>
-            <Categories/>
-            <PizzaList/>
+            <Routes>
+                <Route path='/' element={<Home/>} />
+                <Route path='*' element={<NotFoundBlock/>} />
+            </Routes>
         </div>
     );
 }

@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import './_pizzalistitem.scss';
 
-import cheeseburger from '../../assets/pizza/cheeseburger.png';
 
 const PizzaListItem = ({ props }) => {
     const { id, imageUrl, title, types, sizes, price, category, rating } = props;
