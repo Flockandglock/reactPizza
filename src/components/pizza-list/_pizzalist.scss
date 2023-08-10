@@ -7,7 +7,20 @@
     .pizza-list {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 65px 35px;
-        margin-top: 35px;
+        grid-template-rows: repeat(2, 1fr);
+        grid-column-gap: 20px;
+        grid-row-gap: 20px;
+
+        @media (max-width: 1400px) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @media (max-width: 1060px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (max-width: 730px) {
+            grid-template-columns: repeat(1, 1fr);
+        }
     }
 }

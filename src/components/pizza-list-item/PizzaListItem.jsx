@@ -36,7 +36,8 @@ const PizzaListItem = ({ props }) => {
     const sizesElem = renderSizes(sizes);
 
     return (
-        <div className='pizza-item'>
+        <div className='pizza-item-wrapper'>
+            <div className='pizza-item'>
             <img src={imageUrl} alt={imageUrl} />
 
             <div className='pizza-item__title'>{title}</div>
@@ -76,6 +77,7 @@ const PizzaListItem = ({ props }) => {
                         <p className='price__btn-count'>2</p>
                     </button>
                 </div>
+            </div>
             </div>
         </div>
     );
