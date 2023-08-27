@@ -1,7 +1,11 @@
 .App {
+    width: calc(100vw - 100px);
+    height: 100%;
+    margin: 50px auto;
     background-color: #FFFFFF;
     border-radius: 10px;
-    padding: 49px 38px 96px 67px;
+    padding: 49px 38px 96px 31px;
+    
 }
 
 .hr {
