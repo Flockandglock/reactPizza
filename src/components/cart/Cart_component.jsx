@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './_cart.scss';
 
@@ -21,9 +21,9 @@ const Cart_component = () => {
             <span> Сумма заказа: <b>900 ₽</b> </span>
           </div>
           <div class="cart__bottom-buttons">
-            <a href="/" class="button button--outline button--add go-back-btn">
+            <Link to="/" class="button button--outline button--add go-back-btn">
               <span>Вернуться назад</span>
-            </a>
+            </Link>
             <div class="button pay-btn">
               <span>Оплатить сейчас</span>
             </div>
