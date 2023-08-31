@@ -1,7 +1,13 @@
+.pizza-item-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
 .pizza-item {
     display: flex;
     flex-direction: column;
-    max-width: 280px;
+    justify-content: center;
+    max-width: 200px;
     &__title {
         font-weight: 800;
         font-size: 20px;
@@ -111,3 +117,5 @@
         
     }
 }
+
+

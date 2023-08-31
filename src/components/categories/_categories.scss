@@ -2,15 +2,47 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @media (max-width: 1260px) {
+        .sort {
+            margin-left: 20px;
+            &__select {
+                b {
+                    display: none;
+                }
+            }
+        }
+        .list {
+            width: 100%;
+            overflow: scroll;
+        }
+    }
+
+    @media (max-width: 820px) {
+        flex-direction: column-reverse;
+        .sort {
+            margin-bottom: 30px;
+        }
+    }   
+
+    @media (max-width: 390px) {
+        .list {
+            li {
+                padding: 8px 20px;
+            }
+        }
+    }
+
     .list {
         display: flex;
         li {
             font-weight: 700;
             background: #F9F9F9;
             border-radius: 30px;
-            padding: 13px 30px;
+            padding: 8px 20px;
             margin-right: 9px;
             cursor: pointer;
+            
         }
         li:hover {
             background-color: darken(#f9f9f9, 2%);

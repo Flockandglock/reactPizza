@@ -2,6 +2,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @media (max-width: 645px) {
+        flex-direction: column;
+    }
     &__head {
         display: flex;
         img {
@@ -26,6 +30,10 @@
         height: 50px;
         border-radius: 30px;
         background-color: #FE5F1E;
+
+        @media (max-width: 1260px) {
+            margin-top: 20px;
+        }
         .button {
             display: flex;
             justify-content: space-around;
