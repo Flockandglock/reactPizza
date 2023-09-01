@@ -3,38 +3,33 @@ import { useState } from 'react';
 
 import './_categories.scss';
 
-const Categories = () => {
+const Categories = ({categoryId, onClickCategory, sortType, onClickSort}) => {
 
     // Данные для категорий и попапа
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [visiblePopup, setVsiblePopup] = useState(false);
+    
     const categoriesArr = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
-    const [visiblePopup, setVsiblePopup] = useState(false);
     const categoriesPopup = ['популярности', 'цене', 'алфавиту'];
-    const [activeCategoriesPopup, setActiveCategoriesPopup] = useState(0);
-    const selectedName = categoriesPopup[activeCategoriesPopup];
+    
+    const selectedName = categoriesPopup[sortType];
 
-
-    //Тоглим активные индексы 
-    const toogleActivePopup = (index) => {
-        setActiveCategoriesPopup(index);
+     //Тоглим активные индексы 
+     const toogleActivePopup = (index) => {
+        onClickSort(index);
         setVsiblePopup(false);
     };
 
-    const toggleActive = (index) => {
-        setActiveIndex(index);
-    };
-
-    // Возрващаем список
+    // Возвращаем список
     const renderCategories = (arr) => {
         return arr.map((item, index) => 
-            <li key={index} onClick={() => toggleActive(index)} className={activeIndex === index ? 'active' : ''}>{item}</li>    
+            <li key={index} onClick={() => onClickCategory(index)} className={categoryId === index ? 'active' : ''}>{item}</li>    
         );
     };
 
     const renderCategoriesPopup= (arr) => {
         return arr.map((item, index) => 
-            <li key={index} onClick={() => toogleActivePopup(index)} className={activeCategoriesPopup === index ? 'active' : ''}>{item}</li>    
+            <li key={index} onClick={() => toogleActivePopup(index)} className={sortType === index ? 'active' : ''}>{item}</li>    
         );
     };
 
