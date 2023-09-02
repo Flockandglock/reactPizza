@@ -10,13 +10,19 @@ const Categories = ({categoryId, onClickCategory, sortType, onClickSort}) => {
     
     const categoriesArr = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
-    const categoriesPopup = ['популярности', 'цене', 'алфавиту'];
+    const categoriesPopup = [
+            {name: 'популярности (DESC)', sort: 'rating'},
+            {name: 'популярности (ASC)', sort: '-rating'},
+            {name: 'цене (DESC)', sort: 'price'},
+            {name: 'цене (ASC)', sort: '-price'},
+            {name: 'алфавиту (DESC)', sort: 'title'},
+            {name: 'алфавиту (ASC)', sort: '-title'}
+        ];
     
-    const selectedName = categoriesPopup[sortType];
 
-     //Тоглим активные индексы 
-     const toogleActivePopup = (index) => {
-        onClickSort(index);
+    //Тоглим активные индексы 
+    const toogleActivePopup = (obj) => {
+        onClickSort(obj);
         setVsiblePopup(false);
     };
 
@@ -28,8 +34,8 @@ const Categories = ({categoryId, onClickCategory, sortType, onClickSort}) => {
     };
 
     const renderCategoriesPopup= (arr) => {
-        return arr.map((item, index) => 
-            <li key={index} onClick={() => toogleActivePopup(index)} className={sortType === index ? 'active' : ''}>{item}</li>    
+        return arr.map((obj, index) => 
+             <li key={index} onClick={() => toogleActivePopup(obj)} className={sortType.sort === obj.sort ? 'active' : ''}>{obj.name}</li>
         );
     };
 
@@ -61,7 +67,7 @@ const Categories = ({categoryId, onClickCategory, sortType, onClickSort}) => {
                             />
                         </svg>
                         <b>Сортировка по:</b>
-                        <span>{selectedName}</span>
+                        <span>{sortType.name}</span>
                     </div>
                     <div className='sort__popup'>
                        {
