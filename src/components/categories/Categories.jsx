@@ -3,38 +3,39 @@ import { useState } from 'react';
 
 import './_categories.scss';
 
-const Categories = () => {
+const Categories = ({categoryId, onClickCategory, sortType, onClickSort}) => {
 
     // Данные для категорий и попапа
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [visiblePopup, setVsiblePopup] = useState(false);
+    
     const categoriesArr = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
-    const [visiblePopup, setVsiblePopup] = useState(false);
-    const categoriesPopup = ['популярности', 'цене', 'алфавиту'];
-    const [activeCategoriesPopup, setActiveCategoriesPopup] = useState(0);
-    const selectedName = categoriesPopup[activeCategoriesPopup];
-
+    const categoriesPopup = [
+            {name: 'популярности (DESC)', sort: 'rating'},
+            {name: 'популярности (ASC)', sort: '-rating'},
+            {name: 'цене (DESC)', sort: 'price'},
+            {name: 'цене (ASC)', sort: '-price'},
+            {name: 'алфавиту (DESC)', sort: 'title'},
+            {name: 'алфавиту (ASC)', sort: '-title'}
+        ];
+    
 
     //Тоглим активные индексы 
-    const toogleActivePopup = (index) => {
-        setActiveCategoriesPopup(index);
+    const toogleActivePopup = (obj) => {
+        onClickSort(obj);
         setVsiblePopup(false);
     };
 
-    const toggleActive = (index) => {
-        setActiveIndex(index);
-    };
-
-    // Возрващаем список
+    // Возвращаем список
     const renderCategories = (arr) => {
         return arr.map((item, index) => 
-            <li key={index} onClick={() => toggleActive(index)} className={activeIndex === index ? 'active' : ''}>{item}</li>    
+            <li key={index} onClick={() => onClickCategory(index)} className={categoryId === index ? 'active' : ''}>{item}</li>    
         );
     };
 
     const renderCategoriesPopup= (arr) => {
-        return arr.map((item, index) => 
-            <li key={index} onClick={() => toogleActivePopup(index)} className={activeCategoriesPopup === index ? 'active' : ''}>{item}</li>    
+        return arr.map((obj, index) => 
+             <li key={index} onClick={() => toogleActivePopup(obj)} className={sortType.sort === obj.sort ? 'active' : ''}>{obj.name}</li>
         );
     };
 
@@ -66,7 +67,7 @@ const Categories = () => {
                             />
                         </svg>
                         <b>Сортировка по:</b>
-                        <span>{selectedName}</span>
+                        <span>{sortType.name}</span>
                     </div>
                     <div className='sort__popup'>
                        {
