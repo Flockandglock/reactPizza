@@ -29,8 +29,7 @@ const Categories = ({categoryId, onClickCategory, sortType, onClickSort}) => {
     // Возвращаем список
     const renderCategories = (arr) => {
         return arr.map((item, index) => 
-            <li key={index} onClick={() => onClickCategory(index)} className={categoryId === index ? 'active' : ''}>{item}</li>    
-        );
+        <li key={index} onClick={() => onClickCategory(index)} className={categoryId === index ? 'active' : ''}>{item}</li>)  
     };
 
     const renderCategoriesPopup= (arr) => {

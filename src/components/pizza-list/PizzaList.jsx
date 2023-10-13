@@ -1,4 +1,5 @@
 import PizzaListItem from '../pizza-list-item/PizzaListItem';
+import Paginaton from '../pagination/Paginaton';
 
 import Skeleton from './Skeleton';
 
@@ -38,7 +39,9 @@ const PizzaList = ({pizzes, loading}) => {
                         pizzaList
                     }
                 </div>
+                <Paginaton />
             </div>
+            
         </div>
     );
 };
