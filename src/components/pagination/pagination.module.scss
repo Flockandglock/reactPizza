@@ -20,4 +20,13 @@
             }
         }
     }
+
+    :global {
+        .selected {
+            a {
+                background-color: #EB5A1E;
+                color: #fff;
+            }
+        }
+    }
 }
