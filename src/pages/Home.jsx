@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
 import Categories from '../components/categories/Categories';
 import PizzaList from '../components/pizza-list/PizzaList';
-import Paginaton from '../components/pagination/Paginaton';
+
+import {SearchContext} from '../App';
 
 
-const Home = ({search}) => {
+const Home = () => {
 
     const [categoryId, setCategoryId] = useState(0);
     const [sortType, setSortType] = useState({name: 'популярности', sort: 'rating'});
-
     const [pizzes, setPizzes] = useState([]);
-
     const [currentPgae, setCurrentPage] = useState(1);
-
     const [loading, setLoading] = useState(true);
+
+    const {search} = useContext(SearchContext);
 
     
 
