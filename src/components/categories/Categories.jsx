@@ -1,9 +1,17 @@
-import React from 'react';
 import { useState } from 'react';
+
+import { useSelector, useDispatch } from 'react-redux';
+import {setCategoryId, setSortType} from '../../redux/slices/filterSlice';
 
 import './_categories.scss';
 
-const Categories = ({categoryId, onClickCategory, sortType, onClickSort}) => {
+const Categories = () => {
+
+    const dispatch = useDispatch();
+
+    const categoryId = useSelector(state => state.filterSlice.categoryId);
+    const sort = useSelector(state => state.filterSlice.sort);
+
 
     // Данные для категорий и попапа
     const [visiblePopup, setVsiblePopup] = useState(false);
@@ -11,30 +19,34 @@ const Categories = ({categoryId, onClickCategory, sortType, onClickSort}) => {
     const categoriesArr = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
     const categoriesPopup = [
-            {name: 'популярности (DESC)', sort: 'rating'},
-            {name: 'популярности (ASC)', sort: '-rating'},
-            {name: 'цене (DESC)', sort: 'price'},
-            {name: 'цене (ASC)', sort: '-price'},
-            {name: 'алфавиту (DESC)', sort: 'title'},
-            {name: 'алфавиту (ASC)', sort: '-title'}
+            {name: 'популярности (DESC)', sortProperty: 'rating'},
+            {name: 'популярности (ASC)', sortProperty: '-rating'},
+            {name: 'цене (DESC)', sortProperty: 'price'},
+            {name: 'цене (ASC)', sortProperty: '-price'},
+            {name: 'алфавиту (DESC)', sortProperty: 'title'},
+            {name: 'алфавиту (ASC)', sortProperty: '-title'}
         ];
     
 
+    const onChangeCategory = (index) => {
+        dispatch(setCategoryId(index))
+    };
+
     //Тоглим активные индексы 
     const toogleActivePopup = (obj) => {
-        onClickSort(obj);
+        dispatch(setSortType(obj));
         setVsiblePopup(false);
     };
 
     // Возвращаем список
     const renderCategories = (arr) => {
         return arr.map((item, index) => 
-        <li key={index} onClick={() => onClickCategory(index)} className={categoryId === index ? 'active' : ''}>{item}</li>)  
+        <li key={index} onClick={() => onChangeCategory(index)} className={categoryId === index ? 'active' : ''}>{item}</li>)  
     };
 
     const renderCategoriesPopup= (arr) => {
         return arr.map((obj, index) => 
-             <li key={index} onClick={() => toogleActivePopup(obj)} className={sortType.sort === obj.sort ? 'active' : ''}>{obj.name}</li>
+             <li key={index} onClick={() => toogleActivePopup(obj)} className={sort.sortProperty === obj.sortProperty ? 'active' : ''}>{obj.name}</li>
         );
     };
 
@@ -66,7 +78,7 @@ const Categories = ({categoryId, onClickCategory, sortType, onClickSort}) => {
                             />
                         </svg>
                         <b>Сортировка по:</b>
-                        <span>{sortType.name}</span>
+                        <span>{sort.name}</span>
                     </div>
                     <div className='sort__popup'>
                        {

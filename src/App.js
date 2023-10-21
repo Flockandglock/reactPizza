@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+
 import Header from './components/header/Header';
 import Home from './pages/Home';
 import NotFoundBlock from './components/notFoundBlock/NotFoundBlock';
 import Cart from './pages/Cart';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+
 
 
 import './App.scss';
@@ -15,6 +18,8 @@ export const SearchContext = React.createContext();
 function App() {
 
     const [search, setSearch] = useState('');
+
+
 
 
 
