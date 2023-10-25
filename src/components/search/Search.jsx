@@ -16,6 +16,7 @@ const Search = () => {
     const inputRef = useRef();
 
     const onClickClear = () => {
+        setInitValue('')
         setSearch('');
         inputRef.current.focus();
     };
@@ -36,7 +37,7 @@ const Search = () => {
         debuonce(str => {
             setSearch(str)
             console.log(str)
-        }, 1000)
+        }, 500)
     , []);
 
     const onCangeInput = (event) => {

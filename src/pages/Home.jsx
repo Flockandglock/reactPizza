@@ -1,9 +1,8 @@
-import { useEffect, useState, useContext, useCallback } from 'react';
+import { useEffect, useState, useContext } from 'react';
+
 import axios from 'axios';
 
 import { useSelector } from 'react-redux';
-
-
 
 import Categories from '../components/categories/Categories';
 import PizzaList from '../components/pizza-list/PizzaList';
@@ -13,11 +12,9 @@ import {SearchContext} from '../App';
 
 const Home = () => {
     
-    const categoryId = useSelector(state => state.filterSlice.categoryId);
-    const sort = useSelector(state => state.filterSlice.sort);
+    const {categoryId, sort, currentPage} = useSelector(state => state.filterSlice);
 
     const [pizzes, setPizzes] = useState([]);
-    const [currentPgae, setCurrentPage] = useState(1);
     const [loading, setLoading] = useState(true);
 
     const {search, setSearch} = useContext(SearchContext);
@@ -31,7 +28,7 @@ const Home = () => {
         const category = categoryId  > 0 ? `category=${categoryId}` : '';
         const searchValue = search ? `&search=${search}` : '';
 
-        axios.get(`https://6420812425cb6572104ac358.mockapi.io/items?page=${currentPgae}&limit=4&${category}&sortBy=${sortBy}&order=${order}${searchValue}`)
+        axios.get(`https://6420812425cb6572104ac358.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${searchValue}`)
         .then(response => {
             setPizzes(response.data);
             setLoading(false);
@@ -40,10 +37,7 @@ const Home = () => {
 
         window.scrollTo(0, 0);
 
-    }, [categoryId, sort, search, currentPgae]);
-
-   
-
+    }, [categoryId, sort, search, currentPage]);
 
 
 
@@ -53,8 +47,7 @@ const Home = () => {
             <PizzaList 
                 pizzes={pizzes}
                 loading={loading}
-                search={search}
-                onChangePage = {num => setCurrentPage(num)} /> 
+                search={search} /> 
                 
         </>
     );
