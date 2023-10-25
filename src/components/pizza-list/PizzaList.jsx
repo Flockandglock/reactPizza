@@ -7,7 +7,7 @@ import './_pizzalist.scss';
 
 
 
-const PizzaList = ({pizzes, loading, onChangePage}) => {
+const PizzaList = ({pizzes, loading}) => {
 
     const renderPizzaList = (pizzes) => {
         return pizzes.map((pizza) => 
@@ -39,7 +39,7 @@ const PizzaList = ({pizzes, loading, onChangePage}) => {
                         pizzaList
                     }
                 </div>
-                <Paginaton onChangePage={num => onChangePage(num)} />
+                <Paginaton />
             </div>
             
         </div>
