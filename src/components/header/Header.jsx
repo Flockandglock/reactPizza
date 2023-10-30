@@ -8,9 +8,6 @@ import logoSvg from '../../assets/header/pizza-logo.png';
 
 const Header = ({}) => {
 
-    
-
-
     return (
         <div className='container'>
             <div className='wrapper'>

@@ -35,8 +35,7 @@ const Search = () => {
 
     const updateSearchValue = useCallback(
         debuonce(str => {
-            setSearch(str)
-            console.log(str)
+            setSearch(str);
         }, 500)
     , []);
 
