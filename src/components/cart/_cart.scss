@@ -108,11 +108,47 @@ $duration: 0.15s;
         width: 13%;
   
         &-minus {
+          width: 34px;
+          height: 34px;
+          padding: 6px;
+          background-color: white;
+          border: 1px solid #EB5A1E;
+          border-radius: 50%;
+          cursor: pointer;
+          &:hover {
+            background-color: #EB5A1E;
+            svg {
+              path {
+                fill: #FFFFFF;
+            }
+              
+            }
+          }
           svg {
             path:first-of-type {
               display: none;
             }
           }
+        }
+
+        &-plus {
+          width: 34px;
+          height: 34px;
+          padding: 6px;
+          background-color: white;
+          border: 1px solid #EB5A1E;
+          border-radius: 50%;
+          cursor: pointer;
+          &:hover {
+            background-color: #EB5A1E;
+            svg {
+              path {
+                fill: #FFFFFF;
+            }
+              
+            }
+          }
+          
         }
   
         b {
@@ -137,10 +173,27 @@ $duration: 0.15s;
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        width: 4%;
+       
   
         .button {
           border-color: darken($color: $gray-line, $amount: 10);
+          
+          width: 34px;
+          height: 34px;
+          padding: 6px;
+          background-color: white;
+          border: 1px solid #a29f9d;
+          border-radius: 50%;
+          cursor: pointer;
+          &:hover {
+            background-color: #a29f9d;
+            svg {
+              path {
+                fill: #FFFFFF;
+            }
+              
+            }
+          }
         }
   
         svg {
@@ -156,6 +209,7 @@ $duration: 0.15s;
             width: 11.5px;
             height: 11.5px;
             position: relative;
+            left: 5px;
           }
           &:hover,
           &:active {

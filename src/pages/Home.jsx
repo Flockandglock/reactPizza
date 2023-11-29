@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import { useSelector, useDispatch } from 'react-redux';
-import {setFilters} from '../redux/slices/filterSlice';
+import {setFilters} from '../redux/slices/filterSlice'; 
 
 import Categories from '../components/categories/Categories';
 import PizzaList from '../components/pizza-list/PizzaList';
@@ -76,7 +76,7 @@ const Home = () => {
 
         
         dispatch(setFilters({params, sortInObj}));
-		isSearch.current = true;
+		    isSearch.current = true;
       }
     }, [])
 
