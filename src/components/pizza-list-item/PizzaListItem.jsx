@@ -1,5 +1,8 @@
 import { useState } from 'react';
 
+import { useSelector, useDispatch } from 'react-redux';
+import {addItem} from '../../redux/slices/cartSlice.js';
+
 import './_pizzalistitem.scss';
 
 
@@ -9,6 +12,23 @@ const PizzaListItem = ({ props }) => {
 
     const [activeIndexSize, setActiveIndexSize] = useState(0);
     const [activeIndexType, setActiveIndexType] = useState(0);
+
+    const dispatch = useDispatch();
+    const cartItem = useSelector(state => state.cartSlice.items.find(obj => obj.id === id));
+    const addedCount = cartItem ? cartItem.count : 0;
+
+
+    const onClickAdd = () => {
+        const item = {
+            id,
+            title,
+            price,
+            imageUrl,
+            type: typeNames[activeIndexType],
+            size: activeIndexSize
+        };
+        dispatch(addItem(item))
+    };
 
     const renderTypes = (arr) => {
         return arr.map((item, index) => (
@@ -35,6 +55,7 @@ const PizzaListItem = ({ props }) => {
     const typesElem = renderTypes(types);
     const sizesElem = renderSizes(sizes);
 
+
     return (
         <div className='pizza-item-wrapper'>
             <div className='pizza-item'>
@@ -59,7 +80,7 @@ const PizzaListItem = ({ props }) => {
 
                 <div className='wrapper__price'>
                     <div className='price__start'>от {price}</div>
-                    <button className='price__btn'>
+                    <button onClick={onClickAdd} className='price__btn'>
                         <svg
                             width='12'
                             height='12'
@@ -74,7 +95,8 @@ const PizzaListItem = ({ props }) => {
 
                         <span>Добавить</span>
 
-                        <p className='price__btn-count'>2</p>
+                        {addedCount > 0 && <p className='price__btn-count'>{addedCount}</p>}
+                      
                     </button>
                 </div>
             </div>

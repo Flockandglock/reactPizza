@@ -75,18 +75,23 @@
             color: #FE5F1E;
             text-decoration: underline;
         }
+        
     }
-    &__popup {
+    &__dropdown {
         position: absolute;
         box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.03);
         border-radius: 10px;
         margin-top: 30px;
         right: 0;
+        ul {
+            background-color: white;
+        }
         li {
             padding: 12px 20px;
             cursor: pointer;
             font-weight: 400;
             font-size: 14px;
+            background-color: white;
         }
         .active {
             color: #FE5F1E;

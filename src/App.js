@@ -20,9 +20,6 @@ function App() {
     const [search, setSearch] = useState('');
 
 
-
-
-
     return (
         <div className="App">
             <SearchContext.Provider value={{search, setSearch}}>

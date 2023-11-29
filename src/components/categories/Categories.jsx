@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 import {setCategoryId, setSortType} from '../../redux/slices/filterSlice';
@@ -15,27 +15,53 @@ export const categoriesPopup = [
     {name: 'алфавиту (ASC)', sortProperty: '-title'}
 ];
 
+const ClickOutsideHandler = ({ onClickOutside, children }) => {
+    const wrapperRef = useRef(null);
+  
+    useEffect(() => {
+      const handleClickOutside = event => {
+        if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+          onClickOutside();
+        }
+      };
+  
+      document.addEventListener('click', handleClickOutside);
+  
+      return () => {
+        document.removeEventListener('click', handleClickOutside);
+      };
+    }, [onClickOutside]);
+  
+    return <div ref={wrapperRef} className='sort__dropdown'>{children}</div>;
+};
+
+
 const Categories = () => {
 
     const dispatch = useDispatch();
 
     const categoryId = useSelector(state => state.filterSlice.categoryId);
     const sort = useSelector(state => state.filterSlice.sort);
-
+   
 
     // Данные для категорий и попапа
-    const [visiblePopup, setVsiblePopup] = useState(false);
+    const [dropdown, setDropdown] = useState(false);
     
     const categoriesArr = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
     const onChangeCategory = (index) => {
-        dispatch(setCategoryId(index))
+        dispatch(setCategoryId(index));
     };
+
+    // Закрываем наш dropdown
+    const closeDropdown = () => {
+        setDropdown(false);
+      };
 
     //Тоглим активные индексы 
     const toogleActivePopup = (obj) => {
         dispatch(setSortType(obj));
-        setVsiblePopup(false);
+        setDropdown(false);
     };
 
     // Возвращаем список
@@ -65,7 +91,7 @@ const Categories = () => {
 
                 <div className='sort'>
                     <div className='sort__select'
-                        onClick={() => setVsiblePopup(!visiblePopup)}>
+                        onClick={() => setDropdown(!dropdown)}>
                         <svg
                             width='10'
                             height='6'
@@ -80,16 +106,18 @@ const Categories = () => {
                         <b>Сортировка по:</b>
                         <span>{sort.name}</span>
                     </div>
-                    <div className='sort__popup'>
+                    
                        {
-                            visiblePopup ? 
-                            <ul>
-                                {listCategoriesPopup}
-                            </ul>
+                            dropdown ? 
+                            <ClickOutsideHandler onClickOutside={closeDropdown}>
+                                <ul>
+                                    {listCategoriesPopup}
+                                </ul>
+                            </ClickOutsideHandler>
                             :
                             undefined
                         }
-                    </div>
+                    
                 </div>
             </div>
         </div>
