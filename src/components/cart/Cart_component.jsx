@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {clearItems} from '../../redux/slices/cartSlice.js';
 
 import CartItem from '../cart-item/CartItem';
+import CartEmpty from '../cartEmpty/CartEmpty.jsx';
 
 import './_cart.scss';
 
@@ -22,6 +23,10 @@ const Cart_component = () => {
     }
   };
 
+
+    if (!totalPice) {
+      return <CartEmpty />
+    }
 
     return (
       <div className="container container--cart">
@@ -90,7 +95,7 @@ const Cart_component = () => {
 
             <span>Очистить корзину</span>
           </div>
-        </div>
+        </div> 
         <div className="content__items">
           {
             items.map(item => <CartItem key={items.id} {...item} />)

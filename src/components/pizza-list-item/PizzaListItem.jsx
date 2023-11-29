@@ -25,7 +25,7 @@ const PizzaListItem = ({ props }) => {
             price,
             imageUrl,
             type: typeNames[activeIndexType],
-            size: activeIndexSize
+            size: sizes[activeIndexSize]
         };
         dispatch(addItem(item))
     };

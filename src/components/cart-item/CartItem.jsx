@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {addItem, minusItem, removeItem} from '../../redux/slices/cartSlice.js';
 
 
-const CartItem = ({id, title, type, price, count, imageUrl}) => {
+const CartItem = ({id, title, type, price, count, imageUrl, size}) => {
 
     const dispatch = useDispatch();
 
@@ -34,7 +34,7 @@ const CartItem = ({id, title, type, price, count, imageUrl}) => {
         <div className="cart__item-info">
           <h3>{title}</h3>
           <p>
-            {type} 26 см.
+            {type} {size} см.
           </p>
         </div>
         <div className="cart__item-count">
