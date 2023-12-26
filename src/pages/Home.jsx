@@ -6,6 +6,7 @@ import axios from 'axios';
 
 import { useSelector, useDispatch } from 'react-redux';
 import {setFilters} from '../redux/slices/filterSlice'; 
+import {setItems} from '../redux/slices/pizzaSlice'; 
 
 import Categories from '../components/categories/Categories';
 import PizzaList from '../components/pizza-list/PizzaList';
@@ -22,6 +23,7 @@ const Home = () => {
     const dispatch = useDispatch();
 
     const {categoryId, sort, currentPage} = useSelector(state => state.filterSlice);
+   
 
     const [pizzes, setPizzes] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -32,7 +34,7 @@ const Home = () => {
     const {search, setSearch} = useContext(SearchContext);
 
 
-    const fetchPizzas = () => {
+    const fetchPizzas = async () => {
         setLoading(true);
 
         const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
@@ -40,12 +42,18 @@ const Home = () => {
         const category = categoryId  > 0 ? `category=${categoryId}` : '';
         const searchValue = search ? `&search=${search}` : '';
 
-        axios.get(`https://6420812425cb6572104ac358.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${searchValue}`)
-        .then(response => {
-            setPizzes(response.data);
-            setLoading(false);
-        })
-        .catch(error => console.log(error.statusText));
+        try {
+          const {data} = await axios.get(`https://6420812425cb6572104ac358.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${searchValue}`);
+
+          console.log(data)
+          
+          dispatch(setItems(data));
+        } catch (error) {
+          console.log('ERROR', error);
+          alert("Ошибка при получении пицц")
+        } finally {
+          setLoading(false);
+        }
 
         window.scrollTo(0, 0);
     };
@@ -113,7 +121,7 @@ const Home = () => {
         <>
             <Categories />
             <PizzaList 
-                pizzes={pizzes}
+      
                 loading={loading}
                 search={search} /> 
                 
