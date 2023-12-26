@@ -9,9 +9,9 @@ import './_pizzalist.scss';
 
 
 
-const PizzaList = ({loading}) => {
+const PizzaList = () => {
 
-    const {items} = useSelector(state => state.pizzaSlice);
+    const {items, status} = useSelector(state => state.pizzaSlice);
 
 
     const renderPizzaList = (pizzes) => {
@@ -26,8 +26,8 @@ const PizzaList = ({loading}) => {
         )
     };
 
-    const pizzaList = renderPizzaList(items);
     const skeleton = renderSkeleton(items);
+    const pizzaList = status === 'loading' ? skeleton : renderPizzaList(items);
 
 
     return (
@@ -36,10 +36,12 @@ const PizzaList = ({loading}) => {
                 <h2>Все пиццы</h2>
 
                 <div className='pizza-list'>
-                    {
-                        loading
+                    { status === 'error'
                         ?
-                        skeleton
+                        <div>
+                            <h4>Произошла ошибка</h4>
+                            <p>Неудалось загрузить пиццы</p>
+                        </div>
                         :
                         pizzaList
                     }
