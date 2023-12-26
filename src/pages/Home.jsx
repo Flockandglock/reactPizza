@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {setFilters} from '../redux/slices/filterSlice'; 
 import {fetchPizzas} from '../redux/slices/pizzaSlice'; 
+import {selectFilter} from '../redux/slices/filterSlice'; 
 
 import Categories from '../components/categories/Categories';
 import PizzaList from '../components/pizza-list/PizzaList';
@@ -21,7 +22,7 @@ const Home = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const {categoryId, sort, currentPage} = useSelector(state => state.filterSlice);
+    const {categoryId, sort, currentPage} = useSelector(selectFilter);
   
     const isSearch = useRef(false);
     const isMounted = useRef(false);

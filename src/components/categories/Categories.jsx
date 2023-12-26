@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 import {setCategoryId, setSortType} from '../../redux/slices/filterSlice';
+import {selectFilter} from '../../redux/slices/filterSlice'; 
 
 import './_categories.scss';
 
@@ -40,8 +41,7 @@ const Categories = () => {
 
     const dispatch = useDispatch();
 
-    const categoryId = useSelector(state => state.filterSlice.categoryId);
-    const sort = useSelector(state => state.filterSlice.sort);
+    const {categoryId, sort} = useSelector(selectFilter);
    
 
     // Данные для категорий и попапа
