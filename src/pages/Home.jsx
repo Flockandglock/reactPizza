@@ -2,10 +2,10 @@ import { useEffect, useState, useContext, useRef } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import axios from 'axios';
 
 import { useSelector, useDispatch } from 'react-redux';
 import {setFilters} from '../redux/slices/filterSlice'; 
+import {fetchPizzas} from '../redux/slices/pizzaSlice'; 
 
 import Categories from '../components/categories/Categories';
 import PizzaList from '../components/pizza-list/PizzaList';
@@ -22,38 +22,36 @@ const Home = () => {
     const dispatch = useDispatch();
 
     const {categoryId, sort, currentPage} = useSelector(state => state.filterSlice);
-
-    const [pizzes, setPizzes] = useState([]);
-    const [loading, setLoading] = useState(true);
-	
-	const isSearch = useRef(false);
-	const isMounted = useRef(false);
+  
+    const isSearch = useRef(false);
+    const isMounted = useRef(false);
 
     const {search, setSearch} = useContext(SearchContext);
 
 
-    const fetchPizzas = () => {
-        setLoading(true);
+    const getPizzas = async () => {
+        
 
         const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
         const sortBy = sort.sortProperty.replace('-', '');
         const category = categoryId  > 0 ? `category=${categoryId}` : '';
         const searchValue = search ? `&search=${search}` : '';
 
-        axios.get(`https://6420812425cb6572104ac358.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${searchValue}`)
-        .then(response => {
-            setPizzes(response.data);
-            setLoading(false);
-        })
-        .catch(error => console.log(error.statusText));
-
+        dispatch(fetchPizzas({
+          order,
+          sortBy,
+          category,
+          searchValue,
+          currentPage
+        }));
+       
         window.scrollTo(0, 0);
     };
 
 	// Если не было первого ренедера, то не делаем запрос к пиццам
     useEffect(() => {
 		if (!isSearch.current) {
-			fetchPizzas();
+			getPizzas();
 		}
 		isSearch.current = false;
   	}, [categoryId, sort, search, currentPage])  
@@ -112,10 +110,7 @@ const Home = () => {
     return (
         <>
             <Categories />
-            <PizzaList 
-                pizzes={pizzes}
-                loading={loading}
-                search={search} /> 
+            <PizzaList search={search} /> 
                 
         </>
     );

@@ -1,13 +1,18 @@
 import PizzaListItem from '../pizza-list-item/PizzaListItem';
 import Paginaton from '../pagination/Paginaton';
 
+import { useSelector, useDispatch } from 'react-redux';
+
 import Skeleton from './Skeleton';
 
 import './_pizzalist.scss';
 
 
 
-const PizzaList = ({pizzes, loading}) => {
+const PizzaList = () => {
+
+    const {items, status} = useSelector(state => state.pizzaSlice);
+
 
     const renderPizzaList = (pizzes) => {
         return pizzes.map((pizza) => 
@@ -21,8 +26,8 @@ const PizzaList = ({pizzes, loading}) => {
         )
     };
 
-    const pizzaList = renderPizzaList(pizzes);
-    const skeleton = renderSkeleton(pizzes);
+    const skeleton = renderSkeleton(items);
+    const pizzaList = status === 'loading' ? skeleton : renderPizzaList(items);
 
 
     return (
@@ -31,10 +36,12 @@ const PizzaList = ({pizzes, loading}) => {
                 <h2>Все пиццы</h2>
 
                 <div className='pizza-list'>
-                    {
-                        loading
+                    { status === 'error'
                         ?
-                        skeleton
+                        <div>
+                            <h4>Произошла ошибка</h4>
+                            <p>Неудалось загрузить пиццы</p>
+                        </div>
                         :
                         pizzaList
                     }
