@@ -1,6 +1,8 @@
-import { useContext, useRef, useCallback, useState } from 'react';
+import { useRef, useCallback, useState } from 'react';
 
-import {SearchContext} from '../../App';
+import {useDispatch} from 'react-redux';
+import {setSearchValue} from '../../redux/slices/filterSlice'; 
+
 
 import styles from './search.module.scss';
 
@@ -9,15 +11,15 @@ import clear from '../../assets/clear.svg'
 
 const Search = () => {
 
-    const {search, setSearch} = useContext(SearchContext);
+    const dispatch = useDispatch();
 
     const [initValue, setInitValue] = useState('');
 
     const inputRef = useRef();
 
     const onClickClear = () => {
-        setInitValue('')
-        setSearch('');
+        setInitValue('');
+        dispatch(setSearchValue(''));
         inputRef.current.focus();
     };
 
@@ -35,7 +37,7 @@ const Search = () => {
 
     const updateSearchValue = useCallback(
         debuonce(str => {
-            setSearch(str);
+            dispatch(setSearchValue(str));
         }, 500)
     , []);
 
