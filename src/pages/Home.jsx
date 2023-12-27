@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -6,13 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {setFilters} from '../redux/slices/filterSlice'; 
 import {fetchPizzas} from '../redux/slices/pizzaSlice'; 
+import {selectFilter} from '../redux/slices/filterSlice'; 
 
 import Categories from '../components/categories/Categories';
 import PizzaList from '../components/pizza-list/PizzaList';
 
 import {categoriesPopup} from '../components/categories/Categories';
-
-import {SearchContext} from '../App';
 
 
 
@@ -21,27 +20,24 @@ const Home = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const {categoryId, sort, currentPage} = useSelector(state => state.filterSlice);
+    const {categoryId, sort, currentPage} = useSelector(selectFilter);
+    const {searchValue} = useSelector(selectFilter);
   
     const isSearch = useRef(false);
     const isMounted = useRef(false);
 
-    const {search, setSearch} = useContext(SearchContext);
-
 
     const getPizzas = async () => {
-        
-
         const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
         const sortBy = sort.sortProperty.replace('-', '');
         const category = categoryId  > 0 ? `category=${categoryId}` : '';
-        const searchValue = search ? `&search=${search}` : '';
+        const searchValueForRequest = searchValue ? `&search=${searchValue}` : '';
 
         dispatch(fetchPizzas({
           order,
           sortBy,
           category,
-          searchValue,
+          searchValueForRequest,
           currentPage
         }));
        
@@ -54,7 +50,7 @@ const Home = () => {
 			getPizzas();
 		}
 		isSearch.current = false;
-  	}, [categoryId, sort, search, currentPage])  
+  	}, [categoryId, sort, searchValue, currentPage])  
 
 	// Если в url не было парамеров, то мы их добавляем
     useEffect(() => {
@@ -110,7 +106,7 @@ const Home = () => {
     return (
         <>
             <Categories />
-            <PizzaList search={search} /> 
+            <PizzaList /> 
                 
         </>
     );
