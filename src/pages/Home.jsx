@@ -105,9 +105,8 @@ const Home = () => {
 
     return (
         <>
-            <Categories />
-            <PizzaList /> 
-                
+          <Categories />
+          <PizzaList />     
         </>
     );
 };
