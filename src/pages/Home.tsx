@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ import {categoriesPopup} from '../components/categories/Categories';
 
 
 
-const Home = () => {
+const Home: React.FC = () => {
     
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -55,7 +55,7 @@ const Home = () => {
 	// Если в url не было парамеров, то мы их добавляем
     useEffect(() => {
       if (window.location.search) {
-        const parseInObj = (str) => {
+        const parseInObj = (str: string) => {
 
           const obj = new URLSearchParams(str);
           const queryObject = Object.fromEntries(obj);
@@ -75,28 +75,37 @@ const Home = () => {
     }, [])
 
 	// Вшываем в url парметры, если они были, если их не было, то ставим isMounted.current = true;
+    type LocationPathObj = {
+      sortProperty: {
+        sort: string;
+      };
+      categoryId: string;
+      currentPage: string;
+    }
+
     useEffect(() => {   
-	  if (isMounted.current) {
-		const stringify = (obj) => {
+      if (isMounted.current) {
+        const stringify = (obj: any) => {
+          console.log(obj)
 
-			const objKeys = Object.keys(obj);
-			let string = '';
-		  
-			for (let i = 0; i < objKeys.length; i++) {
-			  string += objKeys[i] + `=${obj[objKeys[i]]}&`;
-			}
-	  
-			return string.slice(0, -1)
-		  };
+          const objKeys = Object.keys(obj);
+          let string = '';
+          
+          for (let i = 0; i < objKeys.length; i++) {
+            string += objKeys[i] + `=${obj[objKeys[i]]}&`;
+          }
+        
+          return string.slice(0, -1)
+          };
 
-		const location = stringify({
-			sortProperty: sort.sortProperty,
-			categoryId,
-			currentPage
-		});
+        const location = stringify({
+          sortProperty: sort.sortProperty,
+          categoryId,
+          currentPage
+        });
 
-		navigate(`?${location}`)
-	  }
+        navigate(`?${location}`);
+      }
 
       isMounted.current = true;
     }, [categoryId, sort.sortProperty, currentPage])   

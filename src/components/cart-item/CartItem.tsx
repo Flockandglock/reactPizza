@@ -5,7 +5,7 @@ import {addItem, minusItem, removeItem} from '../../redux/slices/cartSlice.js';
 
 
 type CartItemProps = {
-  id: string;
+  id: number;
   title: string; 
   type: string; 
   price: number; 

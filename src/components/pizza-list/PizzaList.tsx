@@ -8,16 +8,10 @@ import Skeleton from './Skeleton';
 import './_pizzalist.scss';
 import React from 'react';
 
+import { PizzaItems } from '../../@types/types';
 
-type PizzaItems = {
-    id: string;
-    title: string; 
-    type: string; 
-    price: number; 
-    count: number; 
-    imageUrl: string; 
-    size: number;
-}
+
+
 
 
 const PizzaList: React.FC = () => {
@@ -27,7 +21,7 @@ const PizzaList: React.FC = () => {
 
     const renderPizzaList = (pizzes: PizzaItems[]) => {
         return pizzes.map((pizza) => 
-             <PizzaListItem key={pizza.id} props={pizza}/>
+             <PizzaListItem key={pizza.id} {...pizza}/>
         )
     };
 

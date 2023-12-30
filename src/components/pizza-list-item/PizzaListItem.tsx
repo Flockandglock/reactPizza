@@ -3,23 +3,15 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {addItem} from '../../redux/slices/cartSlice.js';
 
+import { PizzaItems } from '../../@types/types';
+
 import './_pizzalistitem.scss';
 
 
-type PizzaListItemProps = {
-    id: string;
-    title: string; 
-    type: string; 
-    price: number; 
-    count: number; 
-    imageUrl: string; 
-    size: number;
-}
 
+const PizzaListItem: React.FC<PizzaItems> = ({id, imageUrl, title, types, sizes, price}) => {
 
-const PizzaListItem: React.FC<PizzaListItemProps> = ({props}) => {
-    const { id, imageUrl, title, types, sizes, price, category, rating } = props;
-    const typeNames = ['тонкое', 'традиционное'];
+    const typeNames: string[] = ['тонкое', 'традиционное'];
 
     const [activeIndexSize, setActiveIndexSize] = useState(0);
     const [activeIndexType, setActiveIndexType] = useState(0);
@@ -41,7 +33,7 @@ const PizzaListItem: React.FC<PizzaListItemProps> = ({props}) => {
         dispatch(addItem(item))
     };
 
-    const renderTypes = (arr) => {
+    const renderTypes = (arr: number[]) => {
         return arr.map((item, index) => (
             <li
                 key={index}
@@ -52,7 +44,7 @@ const PizzaListItem: React.FC<PizzaListItemProps> = ({props}) => {
         ));
     };
 
-    const renderSizes = (arr) => {
+    const renderSizes = (arr: number[]) => {
         return arr.map((item, index) => (
             <li
                 key={index}

@@ -19,7 +19,7 @@ const Paginaton: React.FC = () => {
         className={styles.root}
         breakLabel="..."
         nextLabel=">"
-        onPageChange={event => dispatch(setCurrentPage(event.selected + 1))}
+        onPageChange={(event) => dispatch(setCurrentPage(event.selected + 1))}
         pageRangeDisplayed={5}
         pageCount={3}
         forcePage={currentPage - 1}
