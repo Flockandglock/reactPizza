@@ -6,15 +6,26 @@ import { useSelector, useDispatch } from 'react-redux';
 import Skeleton from './Skeleton';
 
 import './_pizzalist.scss';
+import React from 'react';
 
 
+type PizzaItems = {
+    id: string;
+    title: string; 
+    type: string; 
+    price: number; 
+    count: number; 
+    imageUrl: string; 
+    size: number;
+}
 
-const PizzaList = () => {
+
+const PizzaList: React.FC = () => {
 
     const {items, status} = useSelector(state => state.pizzaSlice);
 
 
-    const renderPizzaList = (pizzes) => {
+    const renderPizzaList = (pizzes: PizzaItems[]) => {
         return pizzes.map((pizza) => 
              <PizzaListItem key={pizza.id} props={pizza}/>
         )

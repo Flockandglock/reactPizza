@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 import {addItem} from '../../redux/slices/cartSlice.js';
@@ -6,7 +6,18 @@ import {addItem} from '../../redux/slices/cartSlice.js';
 import './_pizzalistitem.scss';
 
 
-const PizzaListItem = ({ props }) => {
+type PizzaListItemProps = {
+    id: string;
+    title: string; 
+    type: string; 
+    price: number; 
+    count: number; 
+    imageUrl: string; 
+    size: number;
+}
+
+
+const PizzaListItem: React.FC<PizzaListItemProps> = ({props}) => {
     const { id, imageUrl, title, types, sizes, price, category, rating } = props;
     const typeNames = ['тонкое', 'традиционное'];
 
@@ -67,14 +78,9 @@ const PizzaListItem = ({ props }) => {
                 <div className='wrapper__options'>
                     <ul className='type'>
                         {typesElem}
-                        {/* <li className='active'>тонкое</li>
-                        <li>традиционное</li> */}
                     </ul>
                     <ul className='size'>
                         {sizesElem}
-                        {/* <li className='active'>26 см.</li>
-                        <li>30 см.</li>
-                        <li>40 см.</li> */}
                     </ul>
                 </div>
 
@@ -92,11 +98,8 @@ const PizzaListItem = ({ props }) => {
                                 fill='#EB5A1E'
                             />
                         </svg>
-
                         <span>Добавить</span>
-
                         {addedCount > 0 && <p className='price__btn-count'>{addedCount}</p>}
-                      
                     </button>
                 </div>
             </div>

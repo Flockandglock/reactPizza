@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 import {setCategoryId, setSortType} from '../../redux/slices/filterSlice';
@@ -7,7 +7,18 @@ import {selectFilter} from '../../redux/slices/filterSlice';
 import './_categories.scss';
 
 
-export const categoriesPopup = [
+type SortItem = {
+    name: string;
+    sortProperty: string;
+}
+
+type ClickOutsideHandlerProps = {
+    onClickOutside: () => void;
+    children: React.ReactNode;
+}
+
+
+export const categoriesPopup: SortItem[] = [
     {name: 'популярности (DESC)', sortProperty: 'rating'},
     {name: 'популярности (ASC)', sortProperty: '-rating'},
     {name: 'цене (DESC)', sortProperty: 'price'},
@@ -16,12 +27,13 @@ export const categoriesPopup = [
     {name: 'алфавиту (ASC)', sortProperty: '-title'}
 ];
 
-const ClickOutsideHandler = ({ onClickOutside, children }) => {
-    const wrapperRef = useRef(null);
+
+const ClickOutsideHandler: React.FC<ClickOutsideHandlerProps> = ({ onClickOutside, children }) => {
+    const wrapperRef = useRef<HTMLDivElement>(null);
   
     useEffect(() => {
-      const handleClickOutside = event => {
-        if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
           onClickOutside();
         }
       };
@@ -33,11 +45,11 @@ const ClickOutsideHandler = ({ onClickOutside, children }) => {
       };
     }, [onClickOutside]);
   
-    return <div ref={wrapperRef} className='sort__dropdown'>{children}</div>;
+    return <div ref={wrapperRef} className='sortdropdown'>{children}</div>;
 };
 
 
-const Categories = () => {
+const Categories: React.FC = () => {
 
     const dispatch = useDispatch();
 
@@ -49,7 +61,7 @@ const Categories = () => {
     
     const categoriesArr = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
-    const onChangeCategory = (index) => {
+    const onChangeCategory = (index: number) => {
         dispatch(setCategoryId(index));
     };
 
@@ -59,18 +71,18 @@ const Categories = () => {
       };
 
     //Тоглим активные индексы 
-    const toogleActivePopup = (obj) => {
+    const toogleActivePopup = (obj: SortItem) => {
         dispatch(setSortType(obj));
         setDropdown(false);
     };
 
     // Возвращаем список
-    const renderCategories = (arr) => {
+    const renderCategories = (arr: string[]) => {
         return arr.map((item, index) => 
         <li key={index} onClick={() => onChangeCategory(index)} className={categoryId === index ? 'active' : ''}>{item}</li>)  
     };
 
-    const renderCategoriesPopup= (arr) => {
+    const renderCategoriesPopup= (arr: SortItem[]) => {
         return arr.map((obj, index) => 
              <li key={index} onClick={() => toogleActivePopup(obj)} className={sort.sortProperty === obj.sortProperty ? 'active' : ''}>{obj.name}</li>
         );

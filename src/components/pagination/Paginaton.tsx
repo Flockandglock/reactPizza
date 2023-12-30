@@ -4,9 +4,10 @@ import {setCurrentPage} from '../../redux/slices/filterSlice';
 import ReactPaginate from 'react-paginate';
 
 import styles from './pagination.module.scss';
+import React from 'react';
 
 
-const Paginaton = () => {
+const Paginaton: React.FC = () => {
 
     const dispatch = useDispatch();
 
