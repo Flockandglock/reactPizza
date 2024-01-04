@@ -12,13 +12,14 @@ import Categories from '../components/categories/Categories';
 import PizzaList from '../components/pizza-list/PizzaList';
 
 import {categoriesPopup} from '../components/categories/Categories';
+import { useAppDispatch } from '../redux/store';
 
 
 
 const Home: React.FC = () => {
     
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const {categoryId, sort, currentPage} = useSelector(selectFilter);
     const {searchValue} = useSelector(selectFilter);
@@ -38,7 +39,7 @@ const Home: React.FC = () => {
           sortBy,
           category,
           searchValueForRequest,
-          currentPage
+          currentPage: String(currentPage)
         }));
        
         window.scrollTo(0, 0);
@@ -52,7 +53,7 @@ const Home: React.FC = () => {
 		isSearch.current = false;
   	}, [categoryId, sort, searchValue, currentPage])  
 
-	// Если в url не было парамеров, то мы их добавляем
+	// Если в url не было параметров, то мы их добавляем
     useEffect(() => {
       if (window.location.search) {
         const parseInObj = (str: string) => {
@@ -60,14 +61,12 @@ const Home: React.FC = () => {
           const obj = new URLSearchParams(str);
           const queryObject = Object.fromEntries(obj);
     
-          return queryObject
+          return queryObject;
     
         };
 
         const params = parseInObj(window.location.search.substring(1));
         const sortInObj = categoriesPopup.find(obj => obj.sortProperty === params.sortProperty)
-        console.log(params)
-
         
         dispatch(setFilters({params, sortInObj}));
 		    isSearch.current = true;

@@ -8,3 +8,20 @@ export type PizzaItems = {
     category: number;
     rating: number; 
 }
+
+export type CartPizzaItem = {
+    id: number;
+    title: string;
+    price: number;
+    imageUrl: string;
+    type: string;
+    size: number;
+    count: number;
+  }
+
+export enum Status {
+    LOADING = 'loading',
+    SUCCESS = 'success',
+    ERROR = 'error'
+}
+

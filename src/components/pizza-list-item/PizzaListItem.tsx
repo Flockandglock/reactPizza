@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import {addItem} from '../../redux/slices/cartSlice.js';
+import {addItem, selectCartItemById} from '../../redux/slices/cartSlice';
 
-import { PizzaItems } from '../../@types/types';
+import { CartPizzaItem, PizzaItems } from '../../@types/types';
 
 import './_pizzalistitem.scss';
 
@@ -12,17 +12,19 @@ import './_pizzalistitem.scss';
 const PizzaListItem: React.FC<PizzaItems> = ({id, imageUrl, title, types, sizes, price}) => {
 
     const typeNames: string[] = ['тонкое', 'традиционное'];
+    
 
     const [activeIndexSize, setActiveIndexSize] = useState(0);
     const [activeIndexType, setActiveIndexType] = useState(0);
 
     const dispatch = useDispatch();
-    const cartItem = useSelector(state => state.cartSlice.items.find(obj => obj.id === id));
-    const addedCount = cartItem ? cartItem.count : 0;
+    const cartItem = useSelector(selectCartItemById(id));
+    // const cartItem = useSelector(state => state.cartSlice.items.find(obj => obj.id === id));
+    const addedCount = cartItem ? selectCartItemById : 0;
 
 
     const onClickAdd = () => {
-        const item = {
+        const item: PizzaItems = {
             id,
             title,
             price,

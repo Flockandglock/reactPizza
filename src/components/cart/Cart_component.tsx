@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
-import {clearItems} from '../../redux/slices/cartSlice.js';
+import {clearItems, selectCartSice} from '../../redux/slices/cartSlice';
 
 
 import CartItem from '../cart-item/CartItem';
@@ -10,29 +10,21 @@ import CartEmpty from '../cartEmpty/CartEmpty';
 import './_cart.scss';
 import React from 'react';
 
+import { CartPizzaItem } from '../../@types/types';
 
-type PizzaInCart = {
-  id: number;
-  title: string;
-  price: number;
-  imageUrl: string;
-  type: string;
-  size: number;
-  count: number;
-}
 
 
 const Cart_component: React.FC = () => {
 
   const dispatch = useDispatch();
-  const {items, totalPice} = useSelector(state => state.cartSlice);
+  const {items, totalPice} = useSelector(selectCartSice);
 
-  const totalCount = items.reduce((sum: number, item: PizzaInCart) => sum + item.count, 0);
+  const totalCount = items.reduce((sum: number, item: CartPizzaItem) => sum + item.count, 0);
 
 
   const onClickClear = () => {
     if (window.confirm('Вы действительно хотите очистить карзину?')) {
-      dispatch(clearItems())
+      dispatch(clearItems([]))
     }
   };
 
@@ -111,7 +103,7 @@ const Cart_component: React.FC = () => {
         </div> 
         <div className="content__items">
           {
-            items.map((item: PizzaInCart) => <CartItem key={items.id} {...item} />)
+            items.map((item: CartPizzaItem) => <CartItem key={item.id} {...item} />)
           } 
         </div>
         <div className="cart__bottom">
