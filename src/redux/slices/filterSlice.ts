@@ -1,10 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
+import { Sort } from '../../@types/types';
 
-type Sort = {
-  name: string;
-  sortProperty: 'rating' | 'price' | 'title' | '-rating' | '-price' | '-title';
-}
+
 
 interface FilterSliceState {
   searchValue: string;

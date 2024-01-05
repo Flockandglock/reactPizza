@@ -5,12 +5,8 @@ import {setCategoryId, setSortType} from '../../redux/slices/filterSlice';
 import {selectFilter} from '../../redux/slices/filterSlice'; 
 
 import './_categories.scss';
+import { Sort } from '../../@types/types';
 
-
-type SortItem = {
-    name: string;
-    sortProperty: string;
-}
 
 type ClickOutsideHandlerProps = {
     onClickOutside: () => void;
@@ -18,7 +14,7 @@ type ClickOutsideHandlerProps = {
 }
 
 
-export const categoriesPopup: SortItem[] = [
+export const categoriesPopup: Sort[] = [
     {name: 'популярности (DESC)', sortProperty: 'rating'},
     {name: 'популярности (ASC)', sortProperty: '-rating'},
     {name: 'цене (DESC)', sortProperty: 'price'},
@@ -71,7 +67,7 @@ const Categories: React.FC = () => {
       };
 
     //Тоглим активные индексы 
-    const toogleActivePopup = (obj: SortItem) => {
+    const toogleActivePopup = (obj: Sort) => {
         dispatch(setSortType(obj));
         setDropdown(false);
     };
@@ -82,7 +78,7 @@ const Categories: React.FC = () => {
         <li key={index} onClick={() => onChangeCategory(index)} className={categoryId === index ? 'active' : ''}>{item}</li>)  
     };
 
-    const renderCategoriesPopup= (arr: SortItem[]) => {
+    const renderCategoriesPopup= (arr: Sort[]) => {
         return arr.map((obj, index) => 
              <li key={index} onClick={() => toogleActivePopup(obj)} className={sort.sortProperty === obj.sortProperty ? 'active' : ''}>{obj.name}</li>
         );

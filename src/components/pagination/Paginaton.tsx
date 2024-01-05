@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import {setCurrentPage} from '../../redux/slices/filterSlice';
+import {selectFilter, setCurrentPage} from '../../redux/slices/filterSlice';
 
 import ReactPaginate from 'react-paginate';
 
@@ -11,7 +11,7 @@ const Paginaton: React.FC = () => {
 
     const dispatch = useDispatch();
 
-    const {currentPage} = useSelector(state => state.filterSlice);
+    const {currentPage} = useSelector(selectFilter);
   
    
     return (

@@ -25,3 +25,8 @@ export enum Status {
     ERROR = 'error'
 }
 
+export type Sort = {
+    name: string;
+    sortProperty: 'rating' | 'price' | 'title' | '-rating' | '-price' | '-title';
+  }
+

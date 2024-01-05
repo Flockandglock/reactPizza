@@ -7,10 +7,11 @@ import { useSelector } from 'react-redux';
 import './_header.scss';
 
 import logoSvg from '../../assets/header/pizza-logo.png';
+import { selectCartSice } from '../../redux/slices/cartSlice';
 
 const Header = ({}) => {
 
-    const {items, totalPice} = useSelector(state => state.cartSlice)
+    const {items, totalPice} = useSelector(selectCartSice);
 
     const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);
 

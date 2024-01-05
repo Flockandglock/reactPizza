@@ -9,6 +9,7 @@ import './_pizzalist.scss';
 import React from 'react';
 
 import { PizzaItems } from '../../@types/types';
+import { selectPizzaSlice } from '../../redux/slices/pizzaSlice';
 
 
 
@@ -16,7 +17,7 @@ import { PizzaItems } from '../../@types/types';
 
 const PizzaList: React.FC = () => {
 
-    const {items, status} = useSelector(state => state.pizzaSlice);
+    const {items, status} = useSelector(selectPizzaSlice);
 
 
     const renderPizzaList = (pizzes: PizzaItems[]) => {
@@ -25,9 +26,9 @@ const PizzaList: React.FC = () => {
         )
     };
 
-    const renderSkeleton = () => {
-        return [...new Array(9)].map((items, index) => 
-             <Skeleton key={index} props={items}/>
+    const renderSkeleton = (items: PizzaItems[]) => {
+        return items.map((item, index: number) => 
+             <Skeleton key={index} props={item}/>
         )
     };
 

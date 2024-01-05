@@ -19,18 +19,18 @@ const PizzaListItem: React.FC<PizzaItems> = ({id, imageUrl, title, types, sizes,
 
     const dispatch = useDispatch();
     const cartItem = useSelector(selectCartItemById(id));
-    // const cartItem = useSelector(state => state.cartSlice.items.find(obj => obj.id === id));
-    const addedCount = cartItem ? selectCartItemById : 0;
+    const addedCount = cartItem ? cartItem.count : 0;
 
-
+    
     const onClickAdd = () => {
-        const item: PizzaItems = {
+        const item: CartPizzaItem = {
             id,
             title,
             price,
             imageUrl,
             type: typeNames[activeIndexType],
-            size: sizes[activeIndexSize]
+            size: sizes[activeIndexSize],
+            count: 0
         };
         dispatch(addItem(item))
     };

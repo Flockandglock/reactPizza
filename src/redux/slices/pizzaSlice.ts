@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import { PizzaItems } from '../../@types/types';
 import { Status } from '../../@types/types';
+import { RootState } from '../store';
 
 
 interface PizzaSliceState {
@@ -60,6 +61,8 @@ export const pizzaSlice = createSlice({
 
   }
 });
+
+export const selectPizzaSlice = (state: RootState) => state.pizzaSlice;
 
 
 export const {setItems} = pizzaSlice.actions;
